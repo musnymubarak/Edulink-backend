@@ -47,19 +47,14 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests from the allowed origins or if no origin is provided (like during a server-to-server request)
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin:"*",
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // If you need cookies or other credentials
   })
 );
+
+app.options('*', cors()); 
 
 app.use(morgan("dev"));
 app.use(
