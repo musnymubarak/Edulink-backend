@@ -18,10 +18,10 @@ const tutorRoutes = require("./routes/tutorRoute");
 const profileRoutes = require("./routes/profileRoute");
 const messageRoutes = require("./routes/messageRoute");
 const ratingRoutes = require("./routes/ratingRoute");
-const classRoutes = require("./routes/classRoute"); 
+const classRoutes = require("./routes/classRoute");
 const notificationRoute = require("./routes/notificationRoute");
 const meetRoutes = require("./routes/meetRoutes");
-const reportRoute = require("./routes/reportRoute")
+const reportRoute = require("./routes/reportRoute");
 
 // Import database configuration
 const database = require("./config/db");
@@ -38,7 +38,17 @@ database.connect();
 // Middleware setup
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+
+// Set up CORS middleware with specific origin allowed
+app.use(
+  cors({
+    origin: 'http://localhost:3000', // Allow requests from your frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+    credentials: true, // If you need cookies or other credentials
+  })
+);
+
 app.use(morgan("dev"));
 app.use(
   fileUpload({
@@ -63,7 +73,7 @@ app.use("/api/v1/tutor", tutorRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/messages", messageRoutes);
 app.use("/api/v1/rating", ratingRoutes);
-app.use("/api/v1/classes", classRoutes);  
+app.use("/api/v1/classes", classRoutes);
 app.use("/api/v1/notifications", notificationRoute);
 app.use("/api/meet", meetRoutes);
 app.use("/api/v1/report", reportRoute);
