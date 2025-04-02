@@ -39,12 +39,24 @@ database.connect();
 app.use(express.json());
 app.use(cookieParser());
 
-// Set up CORS middleware with specific origin allowed
+// Set up CORS middleware with specific origins allowed (local and deployed frontend)
+const allowedOrigins = [
+  'http://localhost:3000', // For local development
+  'https://67ed875c3b87a7000819e6d3--edulinkuov.netlify.app', // For Netlify deployed frontend
+];
+
 app.use(
   cors({
-    origin: 'http://localhost:3000', // Allow requests from your frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+    origin: function (origin, callback) {
+      // Allow requests from the allowed origins or if no origin is provided (like during a server-to-server request)
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // If you need cookies or other credentials
   })
 );
