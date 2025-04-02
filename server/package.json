@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "npm install && npm run build",
-    "start": "nodemon ./server/server.js"
+    "build": "echo 'No build step defined'"
   },
   "keywords": [],
   "author": "",
