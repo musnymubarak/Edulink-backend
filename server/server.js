@@ -6,7 +6,6 @@ const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
 const path = require("path");
 
-// Load environment variables
 dotenv.config();
 
 // Import routes
@@ -23,7 +22,6 @@ const notificationRoute = require("./routes/notificationRoute");
 const meetRoutes = require("./routes/meetRoutes");
 const reportRoute = require("./routes/reportRoute");
 
-// Import database configuration
 const database = require("./config/db");
 
 // Initialize Express app
